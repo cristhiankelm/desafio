@@ -20,9 +20,11 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::post('/login', 'AuthController@login')->name('login');
-Route::post('/logout', 'AuthController@logout')->name('logout');
-Route::post('/me', 'AuthController@me')->name('me');
 
-Route::apiResource('/category', 'CategoryController');
-Route::apiResource('/product', 'ProductController');
+Route::group(['middleware' => ['apiJWT']], function () {
+    Route::post('/logout', 'AuthController@logout')->name('logout');
+    Route::post('/me', 'AuthController@me')->name('me');
 
+    Route::apiResource('/category', 'CategoryController');
+    Route::apiResource('/product', 'ProductController');
+});
