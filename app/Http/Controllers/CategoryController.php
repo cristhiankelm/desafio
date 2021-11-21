@@ -56,7 +56,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $categories = Category::find($id);
+        $categories = Category::findOrFail($id);
 
         $response = APIHelpers::createAPIResponse(false, 200, '', $categories);
         return response()->json($response, 200);
@@ -71,7 +71,7 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, $id)
     {
-        $category = Category::find($id);
+        $category = Category::findOrFail($id);
 
         $category->name_category = $request->name_category;
         $category->status = $request->status;

@@ -60,7 +60,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = Product::find($id);
+        $product = Product::findOrFail($id);
 
         $response = APIHelpers::createAPIResponse(false, 200, '', $product);
         return response()->json($response, 200);
@@ -75,7 +75,7 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, $id)
     {
-        $product = Product::find($id);
+        $product = Product::findOrFail($id);
 
         $product->category_id = $request->category_id;
         $product->name = $request->name;
@@ -84,9 +84,9 @@ class ProductController extends Controller
         $product->status = $request->status;
         $product->updated_at = date(now());
 
-        $productSave = $product->save();
+        $productUpdate = $product->save();
 
-        if ($productSave) {
+        if ($productUpdate) {
             $response = APIHelpers::createAPIResponse(false, 200, 'Product updated successfully', null);
             return response()->json($response, 200);
         } else {
