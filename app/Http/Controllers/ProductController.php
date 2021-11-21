@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Product;
 use Illuminate\Http\Request;
 
@@ -27,7 +28,18 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $product = new Product();
+
+        $product->category_id = $request->category_id;
+        $product->name = $request->name;
+        $product->price = $request->price;
+        $product->inventory = $request->inventory;
+        $product->status = $request->status;
+        $product->created_at = date(now());
+        $product->updated_at = date(now());
+
+        $product->save();
+        return response()->json(['message' => 'Registered successfully']);
     }
 
     /**
