@@ -77,11 +77,11 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
 
-        $product->category_id = $request->category_id;
-        $product->name = $request->name;
-        $product->price = $request->price;
-        $product->inventory = $request->inventory;
-        $product->status = $request->status;
+        $product->category_id = is_null($request->category_id) ? $product->category_id : $request->category_id;
+        $product->name = is_null($request->name) ? $product->name : $request->name;
+        $product->price = is_null($request->price) ? $product->price : $request->price;
+        $product->inventory = is_null($request->inventory) ? $product->inventory : $request->inventory;
+        $product->status = is_null($request->status) ? $product->status : $request->status;
         $product->updated_at = date(now());
 
         $productUpdate = $product->save();

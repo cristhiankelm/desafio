@@ -73,8 +73,8 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
 
-        $category->name_category = $request->name_category;
-        $category->status = $request->status;
+        $category->name_category = is_null($request->name_category) ? $category->name_category : $request->name_category;
+        $category->status = is_null($request->status) ? $category->status : $request->status;
         $category->updated_at = date(now());
 
         $categoryUpdate = $category->save();
